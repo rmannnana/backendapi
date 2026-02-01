@@ -44,8 +44,12 @@ export class UsersService {
     findAll(): User[] {
         return this.users;
     }
-    findById(id: string): User | undefined {
-        return this.users.find(user => user.id === id);
+    findById(id: string): User {
+        const user = this.users.find(user => user.id === id);
+        if (!user) {
+            throw new Error(`User with id ${id} not found`);
+        }
+        return user;
     }
     create(user: User): User {
         const newId = (this.users.length + 1).toString();
