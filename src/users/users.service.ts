@@ -40,4 +40,31 @@ export class UsersService {
             updatedAt: new Date()
         }
     ];
+
+    findAll(): User[] {
+        return this.users;
+    }
+    findById(id: string): User | undefined {
+        return this.users.find(user => user.id === id);
+    }
+    create(user: User): User {
+        const newId = (this.users.length + 1).toString();
+        const newUser: User = {
+            ...user,
+            id: newId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        };
+        this.users.push(newUser);
+        return newUser;
+    }
+    update(id: string, user: User): User {
+        const index = this.users.findIndex(u => u.id === id);
+        this.users[index] = user;
+        return user;
+    }
+    delete(id: string): string {
+        this.users = this.users.filter(user => user.id !== id);
+        return `User with id ${id} has been deleted.`;
+    }
 }
