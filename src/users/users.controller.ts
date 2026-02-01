@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { User } from 'types/usersType';
 
@@ -16,5 +16,23 @@ export class UsersController {
     @HttpCode(200)
     findOne(@Param('id') id: string): User {
         return this.usersService.findById(id);
+    }
+
+    @Post()
+    @HttpCode(201)
+    createUser(@Body() user: User): User {
+        return this.usersService.create(user);
+    }
+
+    @Patch(':id')
+    @HttpCode(200)
+    updateUser(@Param('id') id: string, @Body() user: User): User {
+        return this.usersService.update(id, user);
+    }
+
+    @Delete(':id')
+    @HttpCode(204)
+    deleteUser(@Param('id') id: string): void {
+        this.usersService.delete(id);
     }
 }
