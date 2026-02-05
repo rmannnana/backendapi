@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
   users:
     build:
       context: .
@@ -9,3 +16,18 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+
+  db:
+    image: postgres:16
+    container_name: backendapi-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
