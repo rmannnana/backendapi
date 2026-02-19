@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { User } from '../../types/usersType';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
@@ -38,7 +37,13 @@ export class UsersService {
         return user;
     }
 
-    update(id: string, user: User) {
+    update(id: string, user: {
+        email?: string;
+        phone?: string;
+        countryCode?: string;
+        password?: string;
+        name?: string;
+    }) {
         return this.prisma.user.update({
             where: {
                 id: Number(id)

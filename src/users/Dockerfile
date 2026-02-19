@@ -13,6 +13,9 @@ RUN npm install
 # Copy application source
 COPY . .
 
+# Generate Prisma client (si cela n'est pas ajouter, le conteneur ne trouvera pas le client Prisma)
+RUN npx prisma generate
+
 # Build the application
 RUN npm run build
 
