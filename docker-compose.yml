@@ -11,7 +11,7 @@ services:
   users:
     build:
       context: .
-      dockerfile: src/users/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
