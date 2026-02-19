@@ -14,19 +14,19 @@ export class UsersController {
 
     @Get(':id')
     @HttpCode(200)
-    findOne(@Param('id') id: string): User {
+    findOne(@Param('id') id: string) {
         return this.usersService.findById(id);
     }
 
     @Post()
     @HttpCode(201)
-    createUser(@Body() user: User): User {
-        return this.usersService.create(user);
+    create(@Body() body: any) {
+        return this.usersService.create(body);
     }
 
     @Patch(':id')
     @HttpCode(200)
-    updateUser(@Param('id') id: string, @Body() user: User): User {
+    updateUser(@Param('id') id: string, @Body() user: User){
         return this.usersService.update(id, user);
     }
 
