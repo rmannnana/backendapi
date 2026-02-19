@@ -3,6 +3,7 @@ datasource db {
     //N'ajoutez jamais url ici, sinon, le conteneur ne pourra pas se connecter à la base de données. L'url doit être défini dans le fichier .env
     //Même si votre IDE vous signale une erreur, ne vous inquiétez pas, cela est normal. Prisma lira l'url de la base de données à partir du fichier .env lors de l'exécution.
     //url = env("DATABASE_URL")
+    url      = env("DATABASE_URL")
 }
 
 generator client {
