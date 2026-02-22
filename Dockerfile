@@ -32,6 +32,7 @@ WORKDIR /app
 # Copy necessary files from build stage
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package*.json ./
+COPY --from=build /app/prisma/generated ./prisma/generated
 
 # Install only production dependencies
 RUN npm install --only=production
