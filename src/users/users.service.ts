@@ -5,6 +5,7 @@ import { PrismaService } from 'prisma/prisma.service';
 export class UsersService {
     constructor(private readonly prisma: PrismaService) { } // Inject PrismaService
 
+    //Méthode create du UsersService qui va être appelée par le Appservice et qui va créer un nouvel utilisateur dans la base de données en utilisant Prisma
     async create(data: {
         email?: string;
         phone?: string;
