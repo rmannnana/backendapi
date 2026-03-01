@@ -20,13 +20,13 @@ export class UsersController {
 
     @Post()
     @HttpCode(201)
-    create(@Body() body: any) {
-        return this.usersService.create(body);
+    create(@Body() data) {
+        return this.usersService.create(data);
     }
 
     @Patch(':id')
     @HttpCode(200)
-    updateUser(@Param('id') id: string, @Body() user: User){
+    updateUser(@Param('id') id: string, @Body() user: User) {
         return this.usersService.update(id, user);
     }
 

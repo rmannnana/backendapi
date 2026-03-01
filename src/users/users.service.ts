@@ -1,21 +1,17 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, Body } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
     constructor(private readonly prisma: PrismaService) { } // Inject PrismaService
 
-    //Méthode create du UsersService qui va être appelée par le Appservice et qui va créer un nouvel utilisateur dans la base de données en utilisant Prisma
-    async create(data: {
-        email?: string;
-        phone?: string;
-        countryCode?: string;
-        password?: string;
-        name?: string;
-    }) {
+    //Méthode create du UsersService qui va être appelée par le UserService et qui va créer un nouvel utilisateur dans la base de données en utilisant Prisma
+    async create(@Body() data: { email?: string; phone?: string; countryCode?: string; password?: string; name?: string }) {
+        /*
         if (!data.email && !data.phone) {
             throw new BadRequestException('Email ou téléphone requis');
         }
+        */
 
         return this.prisma.user.create({
             data,

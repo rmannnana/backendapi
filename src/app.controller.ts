@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -11,8 +11,16 @@ export class AppController {
   }
 
   //Appcontroller va faire appel à la méthode createUser du Appservice
+  /*
   @Post('users')
-  createUser(data: { email?: string; phone?: string; countryCode?: string; password?: string; name?: string }) {
+  createUser(@Body() data) { email ?: string; phone ?: string; countryCode ?: string; password ?: string; name ?: string }) {
+    return this.appService.createUser(data);
+  }*/
+
+  /*
+  @Post('users')
+  createUser(@Body() data) {
     return this.appService.createUser(data);
   }
+  */
 }
