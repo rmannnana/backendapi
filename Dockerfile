@@ -1,44 +1,42 @@
-# Stage 1: Build
+# =========================
+# Stage 1 — Build
+# =========================
 FROM node:20-alpine AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy package configuration
+# Copier uniquement les fichiers nécessaires aux deps
 COPY package*.json ./
 
-# Install dependencies
+# Installer toutes les dépendances (dev incluses)
 RUN npm install
 
-# Copy application source
+# Copier le reste du projet
 COPY . .
 
-# Generate Prisma client (si cela n'est pas ajouter, le conteneur ne trouvera pas le client Prisma)
+# Générer le client Prisma
 RUN npx prisma generate
 
-# Build the application
+# Build NestJS
 RUN npm run build
 
-# Stage 2: Production
+
+# =========================
+# Stage 2 — Production
+# =========================
 FROM node:20-alpine AS production
 
-# Set environment to production
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-# Set working directory
 WORKDIR /app
 
-# Copy necessary files from build stage
-COPY --from=build /app/dist ./dist
+ENV NODE_ENV=production
+
+# Copier uniquement ce qui est nécessaire
 COPY --from=build /app/package*.json ./
-COPY --from=build /app/prisma/generated ./prisma/generated
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/prisma ./prisma
 
-# Install only production dependencies
-RUN npm install --only=production
-
-# Expose application port
 EXPOSE 3000
 
-# Start the application
-CMD ["node", "dist/src/main"]
+# Lancer l'application NestJS
+CMD ["node", "dist/src/main.js"]
